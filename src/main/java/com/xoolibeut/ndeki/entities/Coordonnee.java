@@ -6,6 +6,11 @@ public class Coordonnee  extends AuditInfo{
 	protected String adresseLigne1;
 	protected String adresseLigne2;
 	protected String adresseLigne3;
+	protected Double gpsLatitude;
+	protected Double gpsLongitude;
+	private String typeAdresse;
+	
+	
 	public String getTelephone1() {
 		return telephone1;
 	}
@@ -35,6 +40,24 @@ public class Coordonnee  extends AuditInfo{
 	}
 	public void setAdresseLigne3(String adresseLigne3) {
 		this.adresseLigne3 = adresseLigne3;
+	}
+	public Double getGpsLatitude() {
+		return gpsLatitude;
+	}
+	public void setGpsLatitude(Double gpsLatitude) {
+		this.gpsLatitude = gpsLatitude;
+	}
+	public Double getGpsLongitude() {
+		return gpsLongitude;
+	}
+	public void setGpsLongitude(Double gpsLongitude) {
+		this.gpsLongitude = gpsLongitude;
+	}
+	public String getTypeAdresse() {
+		return typeAdresse;
+	}
+	public void setTypeAdresse(String typeAdresse) {
+		this.typeAdresse = typeAdresse;
 	}
 	
 }

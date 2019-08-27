@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 @Entity
 public class Commande {
 	@Id
@@ -17,6 +18,8 @@ public class Commande {
 	private String statusPaiement;
 	private Date dateCommande;
 	private String moyenPaiement;
+	@ManyToOne
+	private Client client;
 
 	public long getCommandeId() {
 		return commandeId;
@@ -80,6 +83,14 @@ public class Commande {
 
 	public void setMoyenPaiement(String moyenPaiement) {
 		this.moyenPaiement = moyenPaiement;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 }
