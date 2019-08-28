@@ -18,7 +18,7 @@ public class NdekiServerApplication {
 	@Bean
 	CommandLineRunner initDatabase(PartenaireRepository repository) {
 		return args -> {
-			var partenaire = new Partenaire();
+			Partenaire partenaire = new Partenaire();
 			partenaire.setNom("First partenaire");
 			repository.save(partenaire);
 			partenaire = new Partenaire();

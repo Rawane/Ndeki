@@ -1,8 +1,13 @@
 package com.xoolibeut.ndeki.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,20 +25,49 @@ public class AdminsitrationController {
 	@Autowired
 	private IPartenaireService partenaireService;
 
-	@GetMapping("/list")
-	Iterable<Partenaire> findAll() {
-		return partenaireService.findAll();
+	@GetMapping("/list/partenaire")
+	public ResponseEntity<?> findAll() {
+		return new ResponseEntity<>(partenaireService.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/list/partenaire/{page}/{size}")
+	public ResponseEntity<?> findAllPagination(@PathVariable int page, @PathVariable int size) {
+		Pageable pageable = PageRequest.of(page - 1, size);
+		return new ResponseEntity<>(partenaireService.getListPartenaires(pageable), HttpStatus.OK);
 	}
 
 	@PostMapping(path = "/add/partenaire", consumes = "application/json", produces = "application/json")
-	public void addPartenaire(@RequestBody PartenaireDTO part) {
+	public ResponseEntity<?> addPartenaire(@RequestBody PartenaireDTO part) {
 		try {
-			var partenaire = new TransformPartenaire().apply(part);
+			Partenaire partenaire = new TransformPartenaire().apply(part);
 			partenaireService.addPartenaire(partenaire);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (Exception e) {
-			 throw new ResponseStatusException(
-			           HttpStatus.NOT_FOUND, "Erreur de mise à jour");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise ï¿½ jour");
 		}
 
 	}
+
+	@PostMapping(path = "/update/partenaire", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updatePartenaire(@RequestBody PartenaireDTO part) {
+		try {
+			Partenaire partenaire = new TransformPartenaire().apply(part);
+			partenaireService.updatePartenaire(partenaire);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise ï¿½ jour");
+		}
+	}
+
+	@DeleteMapping(path = "/delete/partenaire/{partenaireId}")
+	public ResponseEntity<?> deletePartenaire(@PathVariable("partenaireId") Long partenaireId) {
+		try {
+			partenaireService.deletePartenaire(partenaireId);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise ï¿½ jour");
+		}
+
+	}
+
 }
