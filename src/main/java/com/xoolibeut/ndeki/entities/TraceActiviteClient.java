@@ -2,20 +2,27 @@ package com.xoolibeut.ndeki.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class TraceActiviteClient {
 	@Id
 	@GeneratedValue
+	@Column(name = "trace_activite_client_id")
 	private long traceActiviteClientId;
 	@ManyToOne
+	@JoinColumn(name = "client_id", nullable = false)
 	private Client client;
-	private Date dateTrace;
-	private String descriptionTrace;
+	@Column(name = "date")
+	private Date date;
+	@Column(name = "description")
+	private String description;
+	@Column(name = "activite")
 	private String activite;
 
 	public long getTraceActiviteClientId() {
@@ -34,20 +41,20 @@ public class TraceActiviteClient {
 		this.client = client;
 	}
 
-	public Date getDateTrace() {
-		return dateTrace;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDateTrace(Date dateTrace) {
-		this.dateTrace = dateTrace;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public String getDescriptionTrace() {
-		return descriptionTrace;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescriptionTrace(String descriptionTrace) {
-		this.descriptionTrace = descriptionTrace;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getActivite() {

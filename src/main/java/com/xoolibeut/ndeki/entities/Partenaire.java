@@ -2,6 +2,7 @@ package com.xoolibeut.ndeki.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,15 +11,23 @@ import javax.persistence.Id;
 public class Partenaire extends Coordonnee {
 	@Id
 	@GeneratedValue
+	@Column(name = "partenaire_id")
 	private long partenaireId;
+	@Column(name = "nom",nullable = false)
 	private String nom;
+	@Column(name = "description")
 	private String description;
 	// Information technique
+	@Column(name = "identifiant")
 	private String identifiant;
+	@Column(name = "password")
 	private String password;
+	@Column(name = "numero")
 	private int numero;
+	@Column(name = "information_accueil")
 	private String informationAccueil;
-	private Date InscriptionDate;
+	@Column(name = "inscription_date")
+	private Date inscriptionDate;
 
 	public long getPartenaireId() {
 		return partenaireId;
@@ -116,13 +125,6 @@ public class Partenaire extends Coordonnee {
 		this.informationAccueil = informationAccueil;
 	}
 
-	public Date getInscriptionDate() {
-		return InscriptionDate;
-	}
-
-	public void setInscriptionDate(Date inscriptionDate) {
-		InscriptionDate = inscriptionDate;
-	}
 
 	public Date getCreationDate() {
 		return creationDate;
@@ -138,6 +140,14 @@ public class Partenaire extends Coordonnee {
 
 	public void setModificationDate(Date modificationDate) {
 		this.modificationDate = modificationDate;
+	}
+
+	public Date getInscriptionDate() {
+		return inscriptionDate;
+	}
+
+	public void setInscriptionDate(Date inscriptionDate) {
+		this.inscriptionDate = inscriptionDate;
 	}
 
 }

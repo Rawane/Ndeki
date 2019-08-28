@@ -1,15 +1,21 @@
 package com.xoolibeut.ndeki.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
 @Entity
 public class Client extends Coordonnee {
 	@Id
 	@GeneratedValue
+	@Column(name = "client_id")
 	private long clientId;
+	@Column(name = "nom")
 	private String nom;
+	@Column(name = "prenom")
 	private String prenom;
+	@Column(name = "adresse_mail")
 	private String adresseMail;
 
 	public long getClientId() {

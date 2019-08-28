@@ -1,5 +1,6 @@
 package com.xoolibeut.ndeki.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -8,8 +9,11 @@ import javax.persistence.Id;
 public class Ville extends AuditInfo {
 	@Id
 	@GeneratedValue
+	@Column(name = "ville_id")
 	private long villeId;
+	@Column(name = "nom")
 	private String nom;
+	@Column(name = "code")
 	private String code;
 
 	public long getVilleId() {

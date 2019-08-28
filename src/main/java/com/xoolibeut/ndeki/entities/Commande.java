@@ -2,23 +2,35 @@ package com.xoolibeut.ndeki.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 @Entity
 public class Commande {
 	@Id
 	@GeneratedValue
+	@Column(name = "commande_id")
 	private long commandeId;
+	@Column(name = "numero_commande")
 	private long numeroCommande;
+	@Column(name = "total_remise")
 	private double totalRemise;
+	@Column(name = "total")
 	private double total;
+	@Column(name = "status_commande")
 	private String statusCommande;
+	@Column(name = "status_paiement")
 	private String statusPaiement;
+	@Column(name = "date_commande")
 	private Date dateCommande;
+	@Column(name = "moyen_paiement")
 	private String moyenPaiement;
 	@ManyToOne
+	@JoinColumn(name = "client_id", nullable = false)
 	private Client client;
 
 	public long getCommandeId() {

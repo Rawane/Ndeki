@@ -2,25 +2,36 @@ package com.xoolibeut.ndeki.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Livraison {
 	@Id
 	@GeneratedValue
+	@Column(name = "livraison_id")
 	private long livraisonId;
 	@ManyToOne
+	@JoinColumn(name = "commande_id", nullable = false)
 	private Commande commande;
 	@ManyToOne
+	@JoinColumn(name = "livreur_id", nullable = false)
 	private Livreur livreur;
+	@Column(name = "date_livraison")
 	private Date dateLivraison;
+	@Column(name = "date_creation")
 	private Date dateCreation;
+	@Column(name = "status_livraison")
 	private String statusLivraison;
+	@Column(name = "commentaire")
 	private String commentaire;
+	@Column(name = "numero")
 	private long numero;
+	@Column(name = "ordre")
 	private int ordre;
 
 	public long getLivraisonId() {

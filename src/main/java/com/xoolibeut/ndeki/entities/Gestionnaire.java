@@ -9,14 +9,14 @@ import javax.persistence.Id;
 
 /**
  * @author AC75094508
- *
+ *Gestionnaire de l'application
  */
 @Entity
-public class Agent extends Coordonnee {
+public class Gestionnaire extends Coordonnee {
 	@Id
 	@GeneratedValue
-	@Column(name = "agent_id")
-	private long agentId;
+	@Column(name = "gestionnaire_id")
+	private long gestionnaireId;
 	@Column(name = "nom", nullable = false)
 	private String nom;
 	@Column(name = "prenom", nullable = false)
@@ -30,14 +30,9 @@ public class Agent extends Coordonnee {
 	private String password;
 	@Column(name = "matricule")
 	private String matricule;
-
-	public long getAgentId() {
-		return agentId;
-	}
-
-	public void setAgentId(long agentId) {
-		this.agentId = agentId;
-	}
+	@Column(name = "adresse_mail")
+	private String adresseMail;
+	
 
 	public String getNom() {
 		return nom;
@@ -141,6 +136,22 @@ public class Agent extends Coordonnee {
 
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
+	}
+
+	public long getGestionnaireId() {
+		return gestionnaireId;
+	}
+
+	public void setGestionnaireId(long gestionnaireId) {
+		this.gestionnaireId = gestionnaireId;
+	}
+
+	public String getAdresseMail() {
+		return adresseMail;
+	}
+
+	public void setAdresseMail(String adresseMail) {
+		this.adresseMail = adresseMail;
 	}
 
 }

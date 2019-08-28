@@ -2,21 +2,27 @@ package com.xoolibeut.ndeki.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class TraceCommande {
 	@Id
 	@GeneratedValue
+	@Column(name = "trace_commande_id")
 	private long traceCommandeId;
 	@ManyToOne
+	@JoinColumn(name = "commande_id", nullable = false)
 	private Commande commande;
 	private String commentaire;
-	private TypeTrace typeTrace;
-	private Date dateTrace;
+	@Column(name = "type")
+	private TypeTrace type;
+	@Column(name = "date")
+	private Date date;
 
 	public long getTraceCommandeId() {
 		return traceCommandeId;
@@ -42,19 +48,21 @@ public class TraceCommande {
 		this.commentaire = commentaire;
 	}
 
-	public TypeTrace getTypeTrace() {
-		return typeTrace;
+	public TypeTrace getType() {
+		return type;
 	}
 
-	public void setTypeTrace(TypeTrace typeTrace) {
-		this.typeTrace = typeTrace;
+	public void setType(TypeTrace type) {
+		this.type = type;
 	}
 
-	public Date getDateTrace() {
-		return dateTrace;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDateTrace(Date dateTrace) {
-		this.dateTrace = dateTrace;
+	public void setDate(Date date) {
+		this.date = date;
 	}
+
+	
 }

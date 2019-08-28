@@ -2,20 +2,27 @@ package com.xoolibeut.ndeki.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class ConnectionClient {
 	@Id
 	@GeneratedValue
+	@Column(name = "connection_client_id")
 	private long connectionClientId;
+	@Column(name = "date_connection")
 	private Date dateConnection;
+	@Column(name = "gps_latitude")
 	private Double gpsLatitude;
+	@Column(name = "gps_longitude")
 	private Double gpsLongitude;
 	@ManyToOne
+	@JoinColumn(name = "client_id", nullable = false)
 	private Client client;
 
 	public long getConnectionClientId() {

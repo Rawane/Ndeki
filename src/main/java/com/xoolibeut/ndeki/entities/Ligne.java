@@ -1,5 +1,6 @@
 package com.xoolibeut.ndeki.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,10 +10,15 @@ import javax.persistence.ManyToOne;
 public class Ligne {
 	@Id
 	@GeneratedValue
+	@Column(name = "ligne_id")
 	private long ligneId;
+	@Column(name = "latitude_a")
 	private Double latitudeA;
+	@Column(name = "longitude_a")
 	private Double longitudeA;
+	@Column(name = "latitude_b")
 	private Double latitudeB;
+	@Column(name = "longitude_b")
 	private Double longitudeB;
 	private int ordre;
 	@ManyToOne
