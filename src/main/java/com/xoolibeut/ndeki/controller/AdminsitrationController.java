@@ -22,18 +22,24 @@ import org.springframework.web.server.ResponseStatusException;
 import com.xoolibeut.ndeki.entities.Agent;
 import com.xoolibeut.ndeki.entities.Livreur;
 import com.xoolibeut.ndeki.entities.Partenaire;
+import com.xoolibeut.ndeki.entities.Ville;
 import com.xoolibeut.ndeki.model.AgentDTO;
 import com.xoolibeut.ndeki.model.LivreurDTO;
 import com.xoolibeut.ndeki.model.PartenaireDTO;
+import com.xoolibeut.ndeki.model.VilleDTO;
 import com.xoolibeut.ndeki.model.transform.TransformAgent;
 import com.xoolibeut.ndeki.model.transform.TransformAgentDTO;
 import com.xoolibeut.ndeki.model.transform.TransformLivreur;
 import com.xoolibeut.ndeki.model.transform.TransformLivreurDTO;
 import com.xoolibeut.ndeki.model.transform.TransformPartenaire;
 import com.xoolibeut.ndeki.model.transform.TransformPartenaireDTO;
+import com.xoolibeut.ndeki.model.transform.TransformVille;
+import com.xoolibeut.ndeki.model.transform.TransformVilleDTO;
 import com.xoolibeut.ndeki.service.IAgentService;
 import com.xoolibeut.ndeki.service.ILivreurService;
 import com.xoolibeut.ndeki.service.IPartenaireService;
+import com.xoolibeut.ndeki.service.IQuartierService;
+import com.xoolibeut.ndeki.service.IVilleService;
 
 @RestController()
 @RequestMapping("/administration/{version}")
@@ -44,6 +50,10 @@ public class AdminsitrationController {
 	private IAgentService agentService;
 	@Autowired
 	private ILivreurService livreurService;
+	@Autowired
+	private IQuartierService quartierService;
+	@Autowired
+	private IVilleService villeService;
 
 	// START GESTION PARTENAIRE
 	@GetMapping("/partenaire/id/{partenaireId}")
@@ -232,5 +242,58 @@ public class AdminsitrationController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
-	// END GESTION AGENT
+	// END GESTION LIVREUR
+
+	// START GESTION VILLE
+	@GetMapping("/list/ville")
+	public ResponseEntity<?> findAllVille() {
+		List<Ville> villes = villeService.findAll();
+		List<VilleDTO> villeDTOs = villes.stream().map(ville -> new TransformVilleDTO().apply(ville))
+				.collect(Collectors.toList());
+		return new ResponseEntity<>(villeDTOs, HttpStatus.OK);
+	}
+
+	@GetMapping("/list/ville/{page}/{size}")
+	public ResponseEntity<?> findAllVillePagination(@PathVariable int page, @PathVariable int size) {
+		Pageable pageable = PageRequest.of(page - 1, size);
+		Page<Ville> villePage = villeService.findAll(pageable);
+		List<VilleDTO> villeDTOs = villePage.getContent().stream().map(ville -> new TransformVilleDTO().apply(ville))
+				.collect(Collectors.toList());
+		Page<VilleDTO> villeDTOPage = PageableExecutionUtils.getPage(villeDTOs, pageable, villePage::getTotalElements);
+		return new ResponseEntity<>(villeDTOPage, HttpStatus.OK);
+	}
+
+	@PostMapping(path = "/add/ville", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> addVille(@RequestBody VilleDTO villeDTO) {
+		try {
+			Ville ville = new TransformVille().apply(villeDTO);
+			villeService.addVille(ville);
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
+		}
+
+	}
+
+	@PostMapping(path = "/update/ville", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateVille(@RequestBody VilleDTO villeDTO) {
+		try {
+			Ville ville = new TransformVille().apply(villeDTO);
+			villeService.updateVille(ville);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
+		}
+	}
+
+	@DeleteMapping(path = "/delete/ville/{villeId}")
+	public ResponseEntity<?> deleteVille(@PathVariable("villeId") Long villeId) {
+		try {
+			villeService.deleteVille(villeId);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
+		}
+	}
+	// END GESTION VILLE
 }
