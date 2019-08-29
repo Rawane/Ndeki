@@ -20,9 +20,11 @@ public class NdekiServerApplication {
 		return args -> {
 			Partenaire partenaire = new Partenaire();
 			partenaire.setNom("First partenaire");
+			partenaire.setNumero("1");
 			repository.save(partenaire);
 			partenaire = new Partenaire();
 			partenaire.setNom("Second Partenaire partenaire");
+			partenaire.setNumero("2");
 			repository.save(partenaire);
 		};
 	}

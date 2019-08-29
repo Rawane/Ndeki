@@ -18,9 +18,9 @@ public interface QuartierRepository extends CrudRepository<Quartier, Long> {
 
 	Quartier getQuartierByAutreNom(String autreNom);
 	
-	//List<Quartier> getListQuartierByVilleVilleId();	
+	List<Quartier> getListQuartierByVilleVilleId(Long villeId);	
 	
-	//List<Quartier> getListQuartierByPartenairePartenaireId();	
+	List<Quartier> getListQuartierByPartenairePartenaireId(Long partenaireId);	
 	
-	//List<Quartier> getListQuartierByLivreurLivreurId();	
+	List<Quartier> getListQuartierByLivreurLivreurId(Long livreurId);	
 }
