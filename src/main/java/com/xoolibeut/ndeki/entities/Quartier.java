@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Quartier extends AuditInfo {
@@ -22,7 +23,7 @@ public class Quartier extends AuditInfo {
 	@ManyToOne
 	@JoinColumn(name = "ville_id", nullable = false)
 	private Ville ville;
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "polygone_id")
 	private Polygone polygone;
 	@ManyToOne

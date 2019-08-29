@@ -1,5 +1,7 @@
 package com.xoolibeut.ndeki.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +21,7 @@ public class PartenaireServiceImpl implements IPartenaireService {
 	}
 
 	@Override
-	public Iterable<Partenaire> findAll() {
+	public List<Partenaire> findAll() {
 
 		return partenaireRepository.findAll();
 	}
@@ -38,5 +40,27 @@ public class PartenaireServiceImpl implements IPartenaireService {
 	@Override
 	public Page<Partenaire> getListPartenaires(Pageable pageable) {		
 		return partenaireRepository.findAll(pageable);
+	}
+
+	@Override
+	public Partenaire getPartenaireById(Long partenaireID) {
+		// TODO Auto-generated method stub
+		return partenaireRepository.findById(partenaireID).get();
+	}
+
+	@Override
+	public Partenaire getPartenaireByNom(String nom) {
+		
+		return partenaireRepository.getPartenaireByNom(nom);
+	}
+
+	@Override
+	public Partenaire getPartenaireByIdentifiant(String identifiant) {		
+		return partenaireRepository.getPartenaireByIdentifiant(identifiant);
+	}
+
+	@Override
+	public Partenaire getPartenaireByNumero(String numero) {		
+		return partenaireRepository.getPartenaireByNumero(numero);
 	}
 }

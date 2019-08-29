@@ -1,36 +1,26 @@
-package com.xoolibeut.ndeki.entities;
+package com.xoolibeut.ndeki.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+public class LivreurDTO extends CoordonneeDTO {
 
-@Entity
-public class Livreur extends Coordonnee {
-	@Id
-	@GeneratedValue
-	@Column(name = "livreur_id")
-	private long livreurId;
-	@Column(name = "nom")
+	private Long livreurId;
+
 	private String nom;
-	@Column(name = "prenom")
 	private String prenom;
-	// Information technique
-	@Column(name = "identifiant")
+	private String description;
+
 	private String identifiant;
-	@Column(name = "password")
+
 	private String password;
-	@Column(name = "matricule")
-	private String matricule;
-	@Column(name = "adresse_mail")
-	private String adresseMail;
-	@Column(name = "status")
+
+	private String matricule;	
+
 	private String status;
-	public long getLivreurId() {
+
+	public Long getLivreurId() {
 		return livreurId;
 	}
 
-	public void setLivreurId(long livreurId) {
+	public void setLivreurId(Long livreurId) {
 		this.livreurId = livreurId;
 	}
 
@@ -48,6 +38,14 @@ public class Livreur extends Coordonnee {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getIdentifiant() {
@@ -74,14 +72,6 @@ public class Livreur extends Coordonnee {
 		this.matricule = matricule;
 	}
 
-	public String getAdresseMail() {
-		return adresseMail;
-	}
-
-	public void setAdresseMail(String adresseMail) {
-		this.adresseMail = adresseMail;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -89,5 +79,8 @@ public class Livreur extends Coordonnee {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+
+	
 
 }

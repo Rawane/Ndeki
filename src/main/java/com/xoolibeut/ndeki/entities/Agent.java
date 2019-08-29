@@ -30,6 +30,8 @@ public class Agent extends Coordonnee {
 	private String password;
 	@Column(name = "matricule")
 	private String matricule;
+	@Column(name = "status")
+	private String status;
 
 	public long getAgentId() {
 		return agentId;
@@ -141,6 +143,14 @@ public class Agent extends Coordonnee {
 
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

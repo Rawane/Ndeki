@@ -13,17 +13,18 @@ public class Partenaire extends Coordonnee {
 	@GeneratedValue
 	@Column(name = "partenaire_id")
 	private long partenaireId;
-	@Column(name = "nom",nullable = false)
+	@Column(name = "nom", nullable = false, unique = true)
 	private String nom;
 	@Column(name = "description")
 	private String description;
 	// Information technique
-	@Column(name = "identifiant")
+	@Column(name = "identifiant", unique = true)
 	private String identifiant;
 	@Column(name = "password")
 	private String password;
-	@Column(name = "numero")
-	private int numero;
+	// numéro attribué pour la gestion
+	@Column(name = "numero", nullable = false, unique = true)
+	private String numero;
 	@Column(name = "information_accueil")
 	private String informationAccueil;
 	@Column(name = "inscription_date")
@@ -109,14 +110,6 @@ public class Partenaire extends Coordonnee {
 		this.password = password;
 	}
 
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
 	public String getInformationAccueil() {
 		return informationAccueil;
 	}
@@ -124,7 +117,6 @@ public class Partenaire extends Coordonnee {
 	public void setInformationAccueil(String informationAccueil) {
 		this.informationAccueil = informationAccueil;
 	}
-
 
 	public Date getCreationDate() {
 		return creationDate;
@@ -148,6 +140,14 @@ public class Partenaire extends Coordonnee {
 
 	public void setInscriptionDate(Date inscriptionDate) {
 		this.inscriptionDate = inscriptionDate;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 }

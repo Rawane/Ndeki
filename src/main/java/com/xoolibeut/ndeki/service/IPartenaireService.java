@@ -1,5 +1,7 @@
 package com.xoolibeut.ndeki.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,7 +15,13 @@ public interface IPartenaireService {
 
 	void deletePartenaire(Long partenaireId);
 
-	Iterable<Partenaire> findAll();
+	List<Partenaire> findAll();
 
 	Page<Partenaire> getListPartenaires(Pageable pageable);
+
+	Partenaire getPartenaireById(Long partenaireId);
+	
+	Partenaire getPartenaireByNom(String nom);
+	Partenaire getPartenaireByIdentifiant(String identifiant);
+	Partenaire getPartenaireByNumero(String numero);
 }
