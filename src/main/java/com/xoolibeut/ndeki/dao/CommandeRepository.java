@@ -1,9 +1,9 @@
 package com.xoolibeut.ndeki.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.xoolibeut.ndeki.entities.Commande;
 
-public interface CommandeRepository extends CrudRepository<Commande, Long> {
+public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
 }

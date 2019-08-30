@@ -1,18 +1,10 @@
 package com.xoolibeut.ndeki.dao;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.xoolibeut.ndeki.entities.Livreur;
 
-public interface LivreurRepository extends CrudRepository<Livreur, Long> {
-
-	Page<Livreur> findAll(Pageable pageable);
-
-	List<Livreur> findAll();
+public interface LivreurRepository extends JpaRepository<Livreur, Long> {
 
 	Livreur getLivreurByIdentifiant(String identifiant);
 

@@ -1,5 +1,6 @@
 package com.xoolibeut.ndeki.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.xoolibeut.ndeki.dao.VilleRepository;
 import com.xoolibeut.ndeki.entities.Ville;
+
 @Component
 public class VilleServiceImpl implements IVilleService {
 	@Autowired
@@ -16,12 +18,15 @@ public class VilleServiceImpl implements IVilleService {
 
 	@Override
 	public Ville addVille(Ville ville) {
+		ville.setCreationDate(new Date());
+		ville.setModificationDate(ville.getCreationDate());
 		villeRepository.save(ville);
 		return ville;
 	}
 
 	@Override
 	public Ville updateVille(Ville ville) {
+		ville.setModificationDate(new Date());
 		villeRepository.save(ville);
 		return ville;
 	}
@@ -49,7 +54,7 @@ public class VilleServiceImpl implements IVilleService {
 	}
 
 	@Override
-	public Ville getVilleByCode(String code) {		
+	public Ville getVilleByCode(String code) {
 		return villeRepository.getVilleByCode(code);
 	}
 

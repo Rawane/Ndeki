@@ -1,5 +1,6 @@
 package com.xoolibeut.ndeki.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,15 @@ public class LivreurServiceImpl implements ILivreurService {
 
 	@Override
 	public Livreur addLivreur(Livreur livreur) {
+		livreur.setCreationDate(new Date());
+		livreur.setModificationDate(livreur.getCreationDate());
 		livreurRepository.save(livreur);
 		return livreur;
 	}
 
 	@Override
 	public Livreur updateLivreur(Livreur livreur) {
+		livreur.setModificationDate(new Date());
 		livreurRepository.save(livreur);
 		return livreur;
 	}

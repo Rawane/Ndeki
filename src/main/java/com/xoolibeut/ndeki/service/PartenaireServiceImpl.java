@@ -1,5 +1,6 @@
 package com.xoolibeut.ndeki.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,15 @@ public class PartenaireServiceImpl implements IPartenaireService {
 	private PartenaireRepository partenaireRepository;
 
 	public Partenaire addPartenaire(Partenaire partenaire) {
+		partenaire.setCreationDate(new Date());
+		partenaire.setModificationDate(partenaire.getCreationDate());
 		partenaireRepository.save(partenaire);
 		return partenaire;
 	}
 
 	@Override
-	public List<Partenaire> findAll() {
-
-		return partenaireRepository.findAll();
-	}
-
-	@Override
 	public Partenaire updatePartenaire(Partenaire partenaire) {
+		partenaire.setModificationDate(new Date());
 		return partenaireRepository.save(partenaire);
 	}
 
@@ -38,7 +36,13 @@ public class PartenaireServiceImpl implements IPartenaireService {
 	}
 
 	@Override
-	public Page<Partenaire> getListPartenaires(Pageable pageable) {		
+	public List<Partenaire> findAll() {
+
+		return partenaireRepository.findAll();
+	}
+
+	@Override
+	public Page<Partenaire> getListPartenaires(Pageable pageable) {
 		return partenaireRepository.findAll(pageable);
 	}
 
@@ -50,17 +54,17 @@ public class PartenaireServiceImpl implements IPartenaireService {
 
 	@Override
 	public Partenaire getPartenaireByNom(String nom) {
-		
+
 		return partenaireRepository.getPartenaireByNom(nom);
 	}
 
 	@Override
-	public Partenaire getPartenaireByIdentifiant(String identifiant) {		
+	public Partenaire getPartenaireByIdentifiant(String identifiant) {
 		return partenaireRepository.getPartenaireByIdentifiant(identifiant);
 	}
 
 	@Override
-	public Partenaire getPartenaireByNumero(String numero) {		
+	public Partenaire getPartenaireByNumero(String numero) {
 		return partenaireRepository.getPartenaireByNumero(numero);
 	}
 }

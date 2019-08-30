@@ -1,5 +1,6 @@
 package com.xoolibeut.ndeki.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,15 @@ public class QuartierServiceImpl implements IQuartierService {
 
 	@Override
 	public Quartier addQuartier(Quartier quartier) {
+		quartier.setCreationDate(new Date());
+		quartier.setModificationDate(quartier.getCreationDate());
 		quartierRepository.save(quartier);
 		return quartier;
 	}
 
 	@Override
 	public Quartier updateQuartier(Quartier quartier) {
+		quartier.setModificationDate(new Date());
 		quartierRepository.save(quartier);
 		return quartier;
 	}

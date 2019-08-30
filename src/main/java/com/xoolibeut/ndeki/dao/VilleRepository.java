@@ -1,18 +1,10 @@
 package com.xoolibeut.ndeki.dao;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.xoolibeut.ndeki.entities.Ville;
 
-public interface VilleRepository extends CrudRepository<Ville, Long> {
-	
-	Page<Ville> findAll(Pageable pageable);
-
-	List<Ville> findAll();	
+public interface VilleRepository extends JpaRepository<Ville, Long> {
 
 	Ville getVilleByNom(String nom);
 

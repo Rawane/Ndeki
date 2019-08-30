@@ -3,6 +3,8 @@ package com.xoolibeut.ndeki.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,6 +50,7 @@ import com.xoolibeut.ndeki.service.IVilleService;
 @RestController()
 @RequestMapping("/administration/{version}")
 public class AdminsitrationController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminsitrationController.class);
 	@Autowired
 	private IPartenaireService partenaireService;
 	@Autowired
@@ -114,6 +117,7 @@ public class AdminsitrationController {
 			partenaireService.addPartenaire(partenaire);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (Exception e) {
+			LOGGER.error("erreur addPartenaire",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 
@@ -126,6 +130,7 @@ public class AdminsitrationController {
 			partenaireService.updatePartenaire(partenaire);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
+			LOGGER.error("erreur updatePartenaire",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
@@ -136,6 +141,7 @@ public class AdminsitrationController {
 			partenaireService.deletePartenaire(partenaireId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			LOGGER.error("erreur deletePartenaire",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
@@ -167,6 +173,7 @@ public class AdminsitrationController {
 			agentService.addAgent(agent);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (Exception e) {
+			LOGGER.error("erreur addAgent",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 
@@ -179,6 +186,7 @@ public class AdminsitrationController {
 			agentService.updateAgent(agent);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
+			LOGGER.error("erreur updateAgent",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
@@ -189,6 +197,7 @@ public class AdminsitrationController {
 			agentService.deleteAgent(agentId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			LOGGER.error("erreur deleteAgent",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
@@ -221,6 +230,7 @@ public class AdminsitrationController {
 			livreurService.addLivreur(livreur);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (Exception e) {
+			LOGGER.error("erreur addLivreur",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 
@@ -233,6 +243,7 @@ public class AdminsitrationController {
 			livreurService.updateLivreur(livreur);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
+			LOGGER.error("erreur updateLivreur",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
@@ -243,6 +254,7 @@ public class AdminsitrationController {
 			livreurService.deleteLivreur(livreurId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			LOGGER.error("erreur deleteLivreur",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
@@ -274,6 +286,7 @@ public class AdminsitrationController {
 			villeService.addVille(ville);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (Exception e) {
+			LOGGER.error("erreur addVille",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 
@@ -286,6 +299,7 @@ public class AdminsitrationController {
 			villeService.updateVille(ville);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
+			LOGGER.error("erreur upadteVille",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
@@ -296,60 +310,66 @@ public class AdminsitrationController {
 			villeService.deleteVille(villeId);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
+			LOGGER.error("erreur deleteVille",e);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 	}
+
 	// END GESTION VILLE
 	// START GESTION QUARTIER
-		@GetMapping("/quartier/list")
-		public ResponseEntity<?> findAllQuartier() {
-			List<Quartier> quartiers = quartierService.findAll();
-			List<QuartierDTO> quartierDTOs = quartiers.stream().map(quartier -> new TransformQuartierDTO().apply(quartier))
-					.collect(Collectors.toList());
-			return new ResponseEntity<>(quartierDTOs, HttpStatus.OK);
+	@GetMapping("/quartier/list")
+	public ResponseEntity<?> findAllQuartier() {
+		List<Quartier> quartiers = quartierService.findAll();
+		List<QuartierDTO> quartierDTOs = quartiers.stream().map(quartier -> new TransformQuartierDTO().apply(quartier))
+				.collect(Collectors.toList());
+		return new ResponseEntity<>(quartierDTOs, HttpStatus.OK);
+	}
+
+	@GetMapping("/quartier/list/{page}/{size}")
+	public ResponseEntity<?> findAllQuartierPagination(@PathVariable int page, @PathVariable int size) {
+		Pageable pageable = PageRequest.of(page - 1, size);
+		Page<Quartier> quartierPage = quartierService.findAll(pageable);
+		List<QuartierDTO> quartierDTOs = quartierPage.getContent().stream()
+				.map(quartier -> new TransformQuartierDTO().apply(quartier)).collect(Collectors.toList());
+		Page<QuartierDTO> quartierDTOPage = PageableExecutionUtils.getPage(quartierDTOs, pageable,
+				quartierPage::getTotalElements);
+		return new ResponseEntity<>(quartierDTOPage, HttpStatus.OK);
+	}
+
+	@PostMapping(path = "/quartier/add", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> addQuartier(@RequestBody QuartierDTO quartierDTO) {
+		try {
+			Quartier quartier = new TransformQuartier().apply(quartierDTO);
+			quartierService.addQuartier(quartier);
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (Exception e) {
+			LOGGER.error("erreur addQuartier",e);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
 
-		@GetMapping("/quartier/list/{page}/{size}")
-		public ResponseEntity<?> findAllQuartierPagination(@PathVariable int page, @PathVariable int size) {
-			Pageable pageable = PageRequest.of(page - 1, size);
-			Page<Quartier> quartierPage = quartierService.findAll(pageable);
-			List<QuartierDTO> quartierDTOs = quartierPage.getContent().stream().map(quartier -> new TransformQuartierDTO().apply(quartier))
-					.collect(Collectors.toList());
-			Page<QuartierDTO> quartierDTOPage = PageableExecutionUtils.getPage(quartierDTOs, pageable, quartierPage::getTotalElements);
-			return new ResponseEntity<>(quartierDTOPage, HttpStatus.OK);
-		}
+	}
 
-		@PostMapping(path = "/quartier/add", consumes = "application/json", produces = "application/json")
-		public ResponseEntity<?> addQuartier(@RequestBody QuartierDTO quartierDTO) {
-			try {
-				Quartier quartier = new TransformQuartier().apply(quartierDTO);
-				quartierService.addQuartier(quartier);
-				return new ResponseEntity<>(HttpStatus.CREATED);
-			} catch (Exception e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
-			}
-
+	@PostMapping(path = "/quartier/update", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateQuartier(@RequestBody QuartierDTO quartierDTO) {
+		try {
+			Quartier quartier = new TransformQuartier().apply(quartierDTO);
+			quartierService.updateQuartier(quartier);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error("erreur updateQuartier",e);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
+	}
 
-		@PostMapping(path = "/quartier/update", consumes = "application/json", produces = "application/json")
-		public ResponseEntity<?> updateQuartier(@RequestBody QuartierDTO quartierDTO) {
-			try {
-				Quartier quartier = new TransformQuartier().apply(quartierDTO);
-				quartierService.updateQuartier(quartier);
-				return new ResponseEntity<>(HttpStatus.OK);
-			} catch (Exception e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
-			}
+	@DeleteMapping(path = "/quartier/delete/{quartierId}")
+	public ResponseEntity<?> deleteQuartier(@PathVariable("quartierId") Long quartierId) {
+		try {
+			quartierService.deleteQuartier(quartierId);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			LOGGER.error("erreur deleteQuartier",e);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
 		}
-
-		@DeleteMapping(path = "/quartier/delete/{quartierId}")
-		public ResponseEntity<?> deleteQuartier(@PathVariable("quartierId") Long quartierId) {
-			try {
-				quartierService.deleteQuartier(quartierId);
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			} catch (Exception e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur de mise à jour");
-			}
-		}
-		// END GESTION QUARTIER
+	}
+	// END GESTION QUARTIER
 }
