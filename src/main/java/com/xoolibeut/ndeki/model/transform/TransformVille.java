@@ -11,7 +11,9 @@ public class TransformVille implements Function<VilleDTO, Ville> {
 	public Ville apply(VilleDTO villeDTO) {
 		Ville ville = new Ville();
 		ville.setCode(villeDTO.getCode());
-		ville.setVilleId(villeDTO.getVilleId());
+		if (villeDTO.getVilleId() != null) {
+			ville.setVilleId(villeDTO.getVilleId());
+		}
 		ville.setNom(villeDTO.getNom());
 		return ville;
 	}

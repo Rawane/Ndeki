@@ -11,9 +11,9 @@ public class Ville extends AuditInfo {
 	@GeneratedValue
 	@Column(name = "ville_id")
 	private long villeId;
-	@Column(name = "nom")
+	@Column(name = "nom",nullable = false,unique=true)
 	private String nom;
-	@Column(name = "code")
+	@Column(name = "code",nullable = false,unique=true)
 	private String code;
 
 	public long getVilleId() {

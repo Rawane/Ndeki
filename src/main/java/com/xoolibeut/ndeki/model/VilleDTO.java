@@ -5,6 +5,7 @@ public class VilleDTO {
 	private Long villeId;
 
 	private String nom;
+	private String code;
 
 	public Long getVilleId() {
 		return villeId;
@@ -30,5 +31,4 @@ public class VilleDTO {
 		this.code = code;
 	}
 
-	private String code;
 }
