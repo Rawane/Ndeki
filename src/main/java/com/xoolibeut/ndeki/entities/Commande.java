@@ -4,10 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.xoolibeut.ndeki.entities.type.StatusCommande;
+import com.xoolibeut.ndeki.entities.type.StatusPaiement;
 
 @Entity
 public class Commande {
@@ -22,9 +27,11 @@ public class Commande {
 	@Column(name = "total")
 	private double total;
 	@Column(name = "status_commande")
-	private String statusCommande;
+	@Enumerated(EnumType.STRING)
+	private StatusCommande statusCommande;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "status_paiement")
-	private String statusPaiement;
+	private StatusPaiement statusPaiement;
 	@Column(name = "date_commande")
 	private Date dateCommande;
 	@Column(name = "moyen_paiement")
@@ -32,6 +39,10 @@ public class Commande {
 	@ManyToOne
 	@JoinColumn(name = "client_id", nullable = false)
 	private Client client;
+	@Column(name = "gps_latitude")
+	protected Double gpsLatitude;
+	@Column(name = "gps_longitude")
+	protected Double gpsLongitude;
 
 	public long getCommandeId() {
 		return commandeId;
@@ -65,22 +76,6 @@ public class Commande {
 		this.total = total;
 	}
 
-	public String getStatusCommande() {
-		return statusCommande;
-	}
-
-	public void setStatusCommande(String statusCommande) {
-		this.statusCommande = statusCommande;
-	}
-
-	public String getStatusPaiement() {
-		return statusPaiement;
-	}
-
-	public void setStatusPaiement(String statusPaiement) {
-		this.statusPaiement = statusPaiement;
-	}
-
 	public Date getDateCommande() {
 		return dateCommande;
 	}
@@ -103,6 +98,38 @@ public class Commande {
 
 	public void setClient(Client client) {
 		this.client = client;
+	}
+
+	public StatusCommande getStatusCommande() {
+		return statusCommande;
+	}
+
+	public void setStatusCommande(StatusCommande statusCommande) {
+		this.statusCommande = statusCommande;
+	}
+
+	public StatusPaiement getStatusPaiement() {
+		return statusPaiement;
+	}
+
+	public void setStatusPaiement(StatusPaiement statusPaiement) {
+		this.statusPaiement = statusPaiement;
+	}
+
+	public Double getGpsLatitude() {
+		return gpsLatitude;
+	}
+
+	public void setGpsLatitude(Double gpsLatitude) {
+		this.gpsLatitude = gpsLatitude;
+	}
+
+	public Double getGpsLongitude() {
+		return gpsLongitude;
+	}
+
+	public void setGpsLongitude(Double gpsLongitude) {
+		this.gpsLongitude = gpsLongitude;
 	}
 
 }
