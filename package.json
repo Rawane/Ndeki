@@ -1,0 +1,34 @@
+{
+  "name": "Ndeki",
+  "version": "0.1.0",
+  "description": "projet ndeki",
+  "repository": {
+    "type": "git",
+    "url": "git@https://github.com/Rawane/Ndeki.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Rawanex",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://ndeki.fr/bugs"
+  },
+  "homepage": "https://ndeki.fr",
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "rest": "^1.3.1"
+  },
+  "scripts": {
+    "watch": "webpack --watch -d"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0"
+  }
+}
